@@ -19,8 +19,8 @@
         <div class="container" align="center" id="header">
             <br>
             <div class="text-right">
-            <button class="btn-primary" type="button" data-toggle="modal" data-target="#login-modal" id="loginBtn">Login</button>
-            <button class="btn-primary" type="button" data-toggle="modal" data-target="#signup-modal" id="signupBtn">Sign Up</button>
+            <button class="btn-primary" type="button" data-toggle="modal" data-target="#login-modal" id="login-btn">Login</button>
+            <button class="btn-primary" type="button" data-toggle="modal" data-target="#signup-modal" id="signup-btn">Sign Up</button>
             </div>
             <h1 id="headline"><span>Love Your Life</span></h1>
             <h4>Everybody likes a LYL pick-me-up. :)</h4>
@@ -44,15 +44,15 @@
                         <form id="signup-form">
                             <div class="form-group">
                                 <label class="control-label">Username:</label>
-                                <input type="text" class="form-control" id="newUn" required>
+                                <input type="text" class="form-control" id="new-user" required>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Password:</label>
-                                <input type="text" class="form-control" id="newPw" required></input>
+                                <input type="text" class="form-control" id="new-pw" required></input>
                             </div>
                             <div>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <input type="submit" class="btn btn-success" id="submitUser">
+                                <input type="submit" class="btn btn-success" id="submit-user">
                                 <p><a href="#" data-toggle="modal" data-dismiss="modal" data-target="#login-modal" class="text">Already have a username? Click here to login.</a></p>
                             </div>
                         </form>
@@ -82,7 +82,7 @@
                             </div>
                             <div>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <input type="submit" class="btn btn-success" id="loginUser">
+                                <input type="submit" class="btn btn-success" id="login-user">
                                 <p><a href="#" data-toggle="modal" data-dismiss="modal" data-target="#signup-modal" class="text">Don't have a username? Click here to sign up.</a></p>
                             </div>
                         </form>
@@ -112,7 +112,7 @@
     <script type="text/javascript" src="../scripts/script.js"></script>
 
     <!-- underscore template -->
-    <script type="text/template" id="actsTemplate">
+    <script type="text/template" id="acts-template">
         <div class="block">
         <h4><%= content %></h4>
         </div>
