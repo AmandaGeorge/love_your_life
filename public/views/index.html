@@ -18,10 +18,16 @@
         <!--Header-->
         <div class="container" align="center" id="header">
             <br>
-            <div class="text-right">
+            <!--Buttons-->
+            <div class="alignleft">
+            <button class="btn-primary" type="button" data-toggle="modal" data-target="#new-act-modal" id="new-act-btn">Post a LYL something</button>
+            </div>
+            <div class="alignright">
             <button class="btn-primary" type="button" data-toggle="modal" data-target="#login-modal" id="login-btn">Login</button>
             <button class="btn-primary" type="button" data-toggle="modal" data-target="#signup-modal" id="signup-btn">Sign Up</button>
             </div>
+            <!--/Buttons-->
+
             <h1 id="headline"><span>Love Your Life</span></h1>
             <h4>Everybody likes a LYL pick-me-up. :)</h4>
             <p>Love Your Life is a website where you can post random acts of kindness that happened to you or that you did for others.  Or just something great that happened to you.  Even if you log in, posts won't show your name.  This isn't about who did what.  This is about sharing the good and beautiful things that happen in our world just for the sake of putting good things out there.  Hopefully you'll even get ideas for more ways to spread kindness.
@@ -31,6 +37,30 @@
             <hr>
         </div>
         <!--/Header-->
+
+        <!--New Act Modal-->
+        <div class="modal fade" id="new-act-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Post a LYL something</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="new-act-form">
+                            <div class="form-group">
+                                <textarea type="text" class="form-control" rows="10" id="new-act" required></textarea>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-success" id="submit-act">
+                            </div>
+                        </form>
+                    </div><!-- /.modal body-->
+                </div><!-- /.modal content-->
+            </div> <!-- /.modal dialog -->
+        </div><!-- /.modal -->
+        <!--/New Act Modal-->
 
         <!--Signup Modal-->
         <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog">

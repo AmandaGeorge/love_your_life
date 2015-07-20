@@ -2,6 +2,7 @@
 	border-radius: 6px;
 	background: #eee;
 	border: 1px solid #ddd;
+	clear: both;
 }
 
 #headline {
@@ -24,4 +25,11 @@
     -o-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
     transition: all 1s ease-in-out;
+}
+
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
 }
