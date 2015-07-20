@@ -28,4 +28,5 @@ Amanda George
 Contact Info
 ------------
 https://github.com/AmandaGeorge
+
 https://www.linkedin.com/in/amandageorge828
