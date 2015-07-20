@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- custom styles -->
+    <link rel="stylesheet" type="text/css" href="../styles/style.css">
+
+    <title>Love Your Life</title>
+</head>
+<body>
+
+    <div class="container" id="page">
+        <!--Header-->
+        <div class="container" align="center" id="header">
+            <br>
+            <div class="text-right">
+            <button class="btn-primary" type="button" data-toggle="modal" data-target="#login-modal" id="loginBtn">Login</button>
+            <button class="btn-primary" type="button" data-toggle="modal" data-target="#signup-modal" id="signupBtn">Sign Up</button>
+            </div>
+            <h1 id="headline"><span>Love Your Life</span></h1>
+            <h4>Everybody likes a LYL pick-me-up. :)</h4>
+            <p>Love Your Life is a website where you can post random acts of kindness that happened to you or that you did for others.  Or just something great that happened to you.  Even if you log in, posts won't show your name.  This isn't about who did what.  This is about sharing the good and beautiful things that happen in our world just for the sake of putting good things out there.  Hopefully you'll even get ideas for more ways to spread kindness.
+            <br>
+            <br>
+            In the spirit of "Say something nice, or don't say anything at all," you can vote up posts, but you can't vote them down.  The ability to comment on posts is purposely not included.  We've all seen how commenting can bring out the worst in people, and we don't need that on this site.</p>
+            <hr>
+        </div>
+        <!--/Header-->
+
+        <!--Signup Modal-->
+        <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Sign Up</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="signup-form">
+                            <div class="form-group">
+                                <label class="control-label">Username:</label>
+                                <input type="text" class="form-control" id="newUn" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Password:</label>
+                                <input type="text" class="form-control" id="newPw" required></input>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-success" id="submitUser">
+                                <p><a href="#" data-toggle="modal" data-dismiss="modal" data-target="#login-modal" class="text">Already have a username? Click here to login.</a></p>
+                            </div>
+                        </form>
+                    </div><!-- /.modal body-->
+                </div><!-- /.modal content-->
+            </div> <!-- /.modal dialog -->
+        </div><!-- /.modal -->
+        <!--/Signup Modal-->
+
+        <!--Login Modal-->
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Login</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="login-form">
+                            <div class="form-group">
+                                <label class="control-label">Username:</label>
+                                <input type="text" class="form-control" id="user" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Password:</label>
+                                <input type="text" class="form-control" id="password" required></input>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-success" id="loginUser">
+                                <p><a href="#" data-toggle="modal" data-dismiss="modal" data-target="#signup-modal" class="text">Don't have a username? Click here to sign up.</a></p>
+                            </div>
+                        </form>
+                    </div><!-- /.modal body-->
+                </div><!-- /.modal content-->
+            </div> <!-- /.modal dialog -->
+        </div><!-- /.modal -->
+        <!--/Login Modal-->
+
+        <!--Space for acts-->
+        <div class="container" id="acts"></div>
+        <!--/Space for acts-->
+    </div>
+
+  
+
+    <!-- jquery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- bootstrap js -->
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <!-- underscore -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+    <!-- custom script -->
+    <script type="text/javascript" src="../scripts/script.js"></script>
+
+    <!-- underscore template -->
+    <script type="text/template" id="actsTemplate">
+        <div class="block">
+        <h4><%= content %></h4>
+        </div>
+    </script>
+
+
+
+</body>
+</html>

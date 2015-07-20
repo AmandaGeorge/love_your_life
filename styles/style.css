@@ -1,0 +1,27 @@
+#header {
+	border-radius: 6px;
+	background: #eee;
+	border: 1px solid #ddd;
+}
+
+#headline {
+	text-align: center;
+}
+
+#acts {
+	position: relative;
+}
+
+.block {
+	border-radius: 6px;
+	position: absolute;
+	background: #eee;
+	padding: 20px;
+	width: 300px;
+	border: 1px solid #ddd;
+	-webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
