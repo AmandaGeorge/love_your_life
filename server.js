@@ -5,6 +5,7 @@ var express = require("express"),
 	_ = require("underscore"),
 	cors = require("cors"),
 	bodyParser = require("body-parser"),
+	session = require("express-session"),
 	mongoose = require("mongoose");
 
 mongoose.connect(
@@ -19,6 +20,12 @@ app.use(express.static(__dirname + "/public"));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
+
+// app.use(session({
+// 	secret: 
+// 	resave: false,
+// 	saveUninitialized: true
+// }));
 
 // var acts = [
 // 		{user: "tester1", content: "I was carrying tons of boxes and this guy ran ahead of me and held the door for me and then the elevator too.", votes: []},
@@ -38,9 +45,25 @@ app.get("/", function(req, res) {
 //acts index
 app.get("/acts", function(req, res) {
 	console.log(Act);
-	Act.find().sort("-_id").exec(function(err, acts) {
+	Act.find().sort("_id").exec(function(err, acts) {
 		console.log(acts);
 		res.json(acts);
+	});
+});
+
+//creat new act
+app.post("/acts", function(req, res) {
+	//grab data from form
+	var newAct = new Act({
+		// user: req.session.user
+		content: req.body.content,
+		// votes: []
+	});
+	console.log(newAct);
+
+	// save new act to db
+	newAct.save(function(err, act) {
+		res.json(act);
 	});
 });
 

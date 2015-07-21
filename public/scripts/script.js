@@ -27,12 +27,15 @@ $(document).ready(function() {
 	// 	$("#acts").prepend($act);
 	// });
 
+	var baseUrl = "http://localhost:3000" // DEV
+	// var baseUrl = "https://loveyourlife.herokuapp.com" // PRD
+
 	$(function() {
 		$(window).resize(setupBlocks);
 	});
 
-	//populate seed data from server
-	$.get("/acts", function(data) {
+	//populate acts from server
+	$.get(baseUrl + "/acts", function(data) {
 		var acts = data;
 
 		_.each(acts, function(act) {
@@ -42,6 +45,7 @@ $(document).ready(function() {
 		setupBlocks();
 	});
 
+	//setup acts view based on window size
 	function setupBlocks() {
 		windowWidth = $(window).width();
 		colWidth = $(".block").outerWidth();
@@ -53,6 +57,7 @@ $(document).ready(function() {
 		positionBlocks();
 	};
 	
+	//determine positioning of each act and apply css
 	function positionBlocks() {
 		$(".block").each(function() {
 			var min = Array.min(blocks);
@@ -63,7 +68,6 @@ $(document).ready(function() {
 				"top":min+"px"
 			});
 			blocks[index] = min+$(this).outerHeight()+margin;
-
 		});
 	};
 
@@ -72,12 +76,17 @@ $(document).ready(function() {
 		return Math.min.apply(Math, array);
 	};
 
-	
+	$("#new-act-form").submit(function(event) {
+		event.preventDefault();
+		console.log('submitting a new act');
+		var act = {
+			content: $("#content-text").val()
+		};
+		$.post("/acts", act, function(data) {
+			$("#acts").prepend(actsTemplate(act));
+			setupBlocks();
+		});
+	});
 
 	
-	// $(function() {
-	// 	$(window).load(setupBlocks);
-	// });
-
-
 });

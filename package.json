@@ -4,7 +4,6 @@
   "description": "What is it? ----------- Love Your Life is a website where you can post random acts of kindness that happened to you or that you did for others.  In the spirit of \"Say something nice, or don't say anything at all,\" you can vote up posts, but you can't vote them down.  The abillity to comment on posts is purposely not included (too hard to police and manage trolls / mean comments).",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "repository": {
@@ -21,11 +20,9 @@
     "body-parser": "^1.13.2",
     "cors": "^2.7.1",
     "express": "^4.13.1",
+    "express-session": "^1.11.3",
     "mongoose": "^4.0.8",
     "require": "^2.4.20",
     "underscore": "^1.8.3"
-  },
-  "scripts": {
-    "start": "node server.js"
   }
 }
