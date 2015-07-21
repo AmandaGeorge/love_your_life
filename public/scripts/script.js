@@ -27,8 +27,8 @@ $(document).ready(function() {
 	// 	$("#acts").prepend($act);
 	// });
 
-	// var baseUrl = "http://localhost:3000" // DEV
-	var baseUrl = "https://loveyourlife.herokuapp.com" // PRD
+	var baseUrl = "http://localhost:3000" // DEV
+	// var baseUrl = "https://loveyourlife.herokuapp.com" // PRD
 
 	$(function() {
 		$(window).resize(setupBlocks);
@@ -76,6 +76,7 @@ $(document).ready(function() {
 		return Math.min.apply(Math, array);
 	};
 
+	// event listener for submitting the new act form
 	$("#new-act-form").submit(function(event) {
 		event.preventDefault();
 		console.log('submitting a new act');
@@ -86,6 +87,39 @@ $(document).ready(function() {
 			$("#acts").prepend(actsTemplate(act));
 			setupBlocks();
 		});
+	});
+
+	// autofocus on the first field in each form
+	$('#new-act-modal').on('shown.bs.modal', function() {
+                $('#content-text').focus();
+            });
+
+	$('#signup-modal').on('shown.bs.modal', function() {
+                $('#signupUser').focus();
+            });
+
+	$('#login-modal').on('shown.bs.modal', function() {
+                $('#user').focus();
+            });
+
+	// event listener for submitting the signup form
+	$("#signup-form").submit(function(event) {
+		event.preventDefault();
+		console.log('creating new user');
+		var user = {
+			username: $("#signupUser").val(),
+			password: $("#signupPw").val()
+		};
+		//send request to server to create new user
+		$.post("/users", user, function(data) {
+			console.log(user);
+		});
+
+		$('#signup-modal').modal('hide');
+
+		//reset the form
+                $(this)[0].reset();
+                $('#signupUser').focus();
 	});
 
 	

@@ -15,17 +15,44 @@ mongoose.connect(
 );
 
 var Act = require("./models/act");
+var User = require("./models/user");
 
 app.use(express.static(__dirname + "/public"));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// app.use(session({
-// 	secret: 
-// 	resave: false,
-// 	saveUninitialized: true
-// }));
+// set session options
+app.use(session({
+	secret: "SshhhhNoTelling",
+	resave: true,
+	saveUninitialized: true,
+	cookie: { maxAge: 60000 }
+}));
+
+// middleware to manage sessions
+app.use("/", function (req, res, next) {
+	// save userId in session for current user
+	req.login = function (user) {
+		req.session.userId = user.id;
+	};
+
+	// find current user based on session.userId
+	req.currentUser = function (callback) {
+		User.findOne({_id: req.session.userId}, function (err, user) {
+			req.user = user;
+			callback(null, user);
+		});
+	};
+
+	// destroy session.userId to log out user
+	req.logout = function () {
+		req.session.userId = null;
+		req.user = null;
+	};
+
+	next();
+});
 
 // var acts = [
 // 		{user: "tester1", content: "I was carrying tons of boxes and this guy ran ahead of me and held the door for me and then the elevator too.", votes: []},
@@ -44,14 +71,13 @@ app.get("/", function(req, res) {
 
 //acts index
 app.get("/acts", function(req, res) {
-	console.log(Act);
 	Act.find().sort("_id").exec(function(err, acts) {
-		console.log(acts);
+		// console.log(acts);
 		res.json(acts);
 	});
 });
 
-//creat new act
+//create new act
 app.post("/acts", function(req, res) {
 	//grab data from form
 	var newAct = new Act({
@@ -59,13 +85,34 @@ app.post("/acts", function(req, res) {
 		content: req.body.content,
 		// votes: []
 	});
-	console.log(newAct);
 
 	// save new act to db
 	newAct.save(function(err, act) {
 		res.json(act);
 	});
 });
+
+//create new user after user submits signup
+app.post("/users", function(req, res) {
+	//grab data from form
+	var newUser = new User({
+		username: req.body.username,
+		password: req.body.password
+	});
+	// console.log(newUser);
+
+	// save new act to db
+	User.createSecure(newUser.username, newUser.password, function (err, user) {
+		req.login(user);
+		res.redirect("/");
+	});
+});
+
+// //user submits login form
+// app.get("/", function (req, res) {
+// 	var userData = 
+// })
+
 
 app.listen(process.env.PORT || 3000, function() {
 	console.log("server started on localhost 3000");

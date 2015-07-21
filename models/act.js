@@ -12,3 +12,4 @@ var ActSchema = new Schema({
 var Act = mongoose.model('Act', ActSchema);
 
 module.exports = Act;
+module.exports.ActSchema = ActSchema;
