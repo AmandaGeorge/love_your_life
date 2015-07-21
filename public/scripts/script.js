@@ -27,8 +27,8 @@ $(document).ready(function() {
 	// 	$("#acts").prepend($act);
 	// });
 
-	var baseUrl = "http://localhost:3000" // DEV
-	// var baseUrl = "https://loveyourlife.herokuapp.com" // PRD
+	// var baseUrl = "http://localhost:3000" // DEV
+	var baseUrl = "https://loveyourlife.herokuapp.com" // PRD
 
 	$(function() {
 		$(window).resize(setupBlocks);
@@ -112,7 +112,7 @@ $(document).ready(function() {
 		};
 		//send request to server to create new user
 		$.post("/users", user, function(data) {
-			console.log(user);
+			console.log("user added to database");
 		});
 
 		$('#signup-modal').modal('hide');
