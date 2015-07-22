@@ -99,7 +99,7 @@ app.post("/users", function(req, res) {
 		username: req.body.username,
 		password: req.body.password
 	});
-	// console.log(newUser);
+	// console.log(newUser);	
 
 	// save new act to db
 	User.createSecure(newUser.username, newUser.password, function (err, user) {
@@ -108,10 +108,40 @@ app.post("/users", function(req, res) {
 	});
 });
 
-// //user submits login form
-// app.get("/", function (req, res) {
-// 	var userData = 
-// })
+//user submits login form
+app.post("/login", function (req, res) {
+	var userData = {
+		username: req.body.username,
+		password: req.body.password
+	};
+	// var userData = req.body.user;
+
+	User.authenticate(userData.username, userData.password, function (err, user) {
+		//saves user id to session
+		req.login(user);
+
+		res.redirect("/");
+		console.log(userData.username + " is logged in.");
+	});
+});
+
+app.get("/users/find/username/:username", function (req, res) {
+	var targetUser = req.params.username;
+
+	User.findOne({username: targetUser}, function (err, foundUser) {
+		if(foundUser) {
+			res.json(foundUser.username)
+		} else {
+			res.json("");
+		}
+	});
+});
+
+app.get("/logout", function (req, res) {
+	console.log("logging out " + req.session.userId);
+	req.logout();
+	res.redirect("/");
+});
 
 
 app.listen(process.env.PORT || 3000, function() {

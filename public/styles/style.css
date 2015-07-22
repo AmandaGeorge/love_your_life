@@ -9,6 +9,22 @@
 	text-align: center;
 }
 
+.alignleft {
+	float: left;
+}
+
+.alignright {
+	float: right;
+}
+
+#login-btn {
+	display: inline;
+}
+
+#logout-btn {
+	display: none;
+}
+
 #acts {
 	position: relative;
 }
@@ -27,9 +43,3 @@
     transition: all 1s ease-in-out;
 }
 
-.alignleft {
-	float: left;
-}
-.alignright {
-	float: right;
-}

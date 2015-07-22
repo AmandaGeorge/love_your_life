@@ -95,20 +95,32 @@ $(document).ready(function() {
             });
 
 	$('#signup-modal').on('shown.bs.modal', function() {
-                $('#signupUser').focus();
+                $('#new-user').focus();
             });
 
 	$('#login-modal').on('shown.bs.modal', function() {
                 $('#user').focus();
             });
 
+	// add listener to check for unique username
+	$("#new-user").on("focusout", function(event) {
+		var that = $(this).val();
+		$.get("/users/find/username/" + that, function (data) {
+			if (data === that ) {
+				console.log(this);
+				alert("Username already exists.  Please choose a new username.");
+				$("#new-user").val("").focus();
+			}
+		});
+	});
+
 	// event listener for submitting the signup form
 	$("#signup-form").submit(function(event) {
 		event.preventDefault();
 		console.log('creating new user');
 		var user = {
-			username: $("#signupUser").val(),
-			password: $("#signupPw").val()
+			username: $("#new-user").val(),
+			password: $("#new-pw").val()
 		};
 		//send request to server to create new user
 		$.post("/users", user, function(data) {
@@ -118,9 +130,43 @@ $(document).ready(function() {
 		$('#signup-modal').modal('hide');
 
 		//reset the form
-                $(this)[0].reset();
-                $('#signupUser').focus();
+        $(this)[0].reset();
+        $('#new-user').focus();
 	});
 
+	// event listener for submitting the login form
+	$("#login-form").submit(function(event) {
+		event.preventDefault();
+		console.log("logging in user");
+		var user = {
+			username: $("#user").val(),
+			password: $("#password").val()
+		};
+		//send request to server to log in the current user
+		$.post("/login", user, function(data) {
+			console.log("authenticating user");
+		});
+
+		$('#login-modal').modal('hide');
+
+		//reset the form
+        $(this)[0].reset();
+        $('#user').focus();
+
+        $("#login-btn").css("display", "none");
+        $("#logout-btn").css("display", "inline");
+	});
+
+	//event listener for logout
+	$("#logout-btn").on("click", function(event) {
+		event.preventDefault();
+
+		$.get("/logout", function(data) {
+			console.log("logging out user");
+		});
+
+		$("#login-btn").css("display", "inline");
+        $("#logout-btn").css("display", "none");
+	});
 	
 });
