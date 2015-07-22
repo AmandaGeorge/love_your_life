@@ -87,6 +87,8 @@ $(document).ready(function() {
 			$("#acts").prepend(actsTemplate(act));
 			setupBlocks();
 		});
+		$('#new-act-modal').modal('hide');
+		$(this)[0].reset();
 	});
 
 	// autofocus on the first field in each form
@@ -144,17 +146,22 @@ $(document).ready(function() {
 		};
 		//send request to server to log in the current user
 		$.post("/login", user, function(data) {
-			console.log("authenticating user");
+			// SUCCESS
+			console.log(data)
+			$("#login-btn").css("display", "none");
+        	$("#logout-btn").css("display", "inline");
+        	$('#login-modal').modal('hide');
+
+        	//reset the form
+        	$("#login-form")[0].reset();
+        	$('#user').focus();
+		}).fail(function(data){
+			// ERROR
+			alert("Incorrect username or password.");
+			$("#login-form")[0].reset();
+			$("#user").focus();
+			console.log("err!")
 		});
-
-		$('#login-modal').modal('hide');
-
-		//reset the form
-        $(this)[0].reset();
-        $('#user').focus();
-
-        $("#login-btn").css("display", "none");
-        $("#logout-btn").css("display", "inline");
 	});
 
 	//event listener for logout

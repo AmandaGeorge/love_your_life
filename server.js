@@ -114,14 +114,17 @@ app.post("/login", function (req, res) {
 		username: req.body.username,
 		password: req.body.password
 	};
-	// var userData = req.body.user;
 
 	User.authenticate(userData.username, userData.password, function (err, user) {
-		//saves user id to session
-		req.login(user);
-
-		res.redirect("/");
-		console.log(userData.username + " is logged in.");
+		if (err) {
+			res.status(403).send(err);
+			console.log(err);
+		} else {
+			//saves user id to session
+			req.login(user);
+			res.status(201).send(user);
+			console.log(userData.username + " is logged in.");
+		}
 	});
 });
 

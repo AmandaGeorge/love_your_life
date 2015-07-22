@@ -37,14 +37,14 @@ UserSchema.statics.authenticate = function (username, password, callback) {
 	// find user by username entered at login
 	this.findOne({username: username}, function (err, user) {
 		console.log(user);
-
-		//throw error if username not found
+		//error if username not found
 		if (user === null) {
-			throw new Error("Cannot find user with username " + username);
-
+			callback("Cannot find user with username " + username, null); //err message is set, user is null
 		//if found, check password
 		} else if (user.checkPassword(password)) {
-			callback(null, user);
+			callback(null, user); //err is null, user is user
+		} else {
+			callback("Incorrect password.", user);
 		}
 	});
 };
