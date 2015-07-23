@@ -28,7 +28,7 @@ $(document).ready(function() {
 	// });
 
 	// var baseUrl = "http://localhost:3000" // DEV
-	var baseUrl = "http://loveyourlife.herokuapp.com" // PRD
+	var baseUrl = "https://loveyourlife.herokuapp.com" // PRD
 
 	$(function() {
 		$(window).resize(setupBlocks);
