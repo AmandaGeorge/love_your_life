@@ -12,7 +12,7 @@ var express = require("express"),
 // mongoose.connect(config.MONGO_URI);
 mongoose.connect(process.env.MONGOLAB_URI 
 				|| process.env.MONGOHQ_URL 
-				|| "mongodb://localhost/loveyourlife");
+				|| require("./config").MONGO_URI);
 
 var Act = require("./models/act");
 var User = require("./models/user");
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // set session options
 app.use(session({
-	secret: config.SESSION_SECRET,
+	secret: require("./config").SESSION_SECRET,
 	resave: true,
 	saveUninitialized: true,
 	cookie: { maxAge: 60000 }
@@ -164,6 +164,6 @@ app.get("/logout", function (req, res) {
 });
 
 
-app.listen(process.env.PORT || 3000, function() {
+app.listen(process.env.PORT || require("./config").PORT, function() {
 	console.log("server started");
 });
