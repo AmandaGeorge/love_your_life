@@ -9,7 +9,10 @@ var express = require("express"),
 	mongoose = require("mongoose"),
 	config = require("./config");
 
-mongoose.connect(config.MONGO_URI);
+// mongoose.connect(config.MONGO_URI);
+mongoose.connect(process.env.MONGOLAB_URI 
+				|| process.env.MONGOHQ_URL 
+				|| "mongodb://localhost/loveyourlife");
 
 var Act = require("./models/act");
 var User = require("./models/user");
@@ -161,6 +164,6 @@ app.get("/logout", function (req, res) {
 });
 
 
-app.listen(config.PORT, function() {
+app.listen(process.env.PORT || 3000, function() {
 	console.log("server started");
 });
