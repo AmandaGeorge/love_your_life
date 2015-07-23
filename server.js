@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // set session options
 app.use(session({
-	secret: require("./config").SESSION_SECRET,
+	secret: process.env.SESSION_SECRET || require("./config").SESSION_SECRET,
 	resave: true,
 	saveUninitialized: true,
 	cookie: { maxAge: 60000 }
