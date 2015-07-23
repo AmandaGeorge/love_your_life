@@ -6,13 +6,10 @@ var express = require("express"),
 	cors = require("cors"),
 	bodyParser = require("body-parser"),
 	session = require("express-session"),
-	mongoose = require("mongoose");
+	mongoose = require("mongoose"),
+	config = require("./config");
 
-mongoose.connect(
-	process.env.MONGOLAB_URI ||
-	process.env.MONGOHQ_URL ||
-	"mongodb://localhost/loveyourlife"
-);
+mongoose.connect(config.MONGO_URI);
 
 var Act = require("./models/act");
 var User = require("./models/user");
@@ -24,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // set session options
 app.use(session({
-	secret: "SshhhhNoTelling",
+	secret: config.SESSION_SECRET,
 	resave: true,
 	saveUninitialized: true,
 	cookie: { maxAge: 60000 }
@@ -81,14 +78,22 @@ app.get("/acts", function(req, res) {
 app.post("/acts", function(req, res) {
 	//grab data from form
 	var newAct = new Act({
-		// user: req.session.user
 		content: req.body.content,
-		// votes: []
 	});
-
-	// save new act to db
-	newAct.save(function(err, act) {
-		res.json(act);
+	//find user currently logged in
+	req.currentUser(function (err, user) {
+		if (user !== null) {
+			// save new act to db
+			newAct.save(function(err, act) {
+				console.log(req.session.userId);
+				user.acts.push(act);
+				user.save(function (err, user) {
+					res.json("Saved!");
+				});
+			});
+		} else {
+			res.send("Please login!");
+		};
 	});
 });
 
@@ -101,10 +106,10 @@ app.post("/users", function(req, res) {
 	});
 	// console.log(newUser);	
 
-	// save new act to db
+	// save new user to db
 	User.createSecure(newUser.username, newUser.password, function (err, user) {
 		req.login(user);
-		res.redirect("/");
+		res.send(user.username + " logged in.");
 	});
 });
 
@@ -135,8 +140,17 @@ app.get("/users/find/username/:username", function (req, res) {
 		if(foundUser) {
 			res.json(foundUser.username)
 		} else {
-			res.json("");
+			res.send("New user");
 		}
+	});
+});
+
+// show user view
+app.get("/me", function (req, res) {
+	//find user currently logged in
+	req.currentUser(function (err, user) {
+		console.log(req.currentUser);
+		res.json(user);
 	});
 });
 
@@ -147,6 +161,6 @@ app.get("/logout", function (req, res) {
 });
 
 
-app.listen(process.env.PORT || 3000, function() {
-	console.log("server started on localhost 3000");
+app.listen(config.PORT, function() {
+	console.log("server started");
 });

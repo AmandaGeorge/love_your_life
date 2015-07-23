@@ -39,7 +39,6 @@ $(document).ready(function() {
 		var acts = data;
 
 		_.each(acts, function(act) {
-			console.log(act);
 			$("#acts").prepend(actsTemplate(act))
 		});
 		setupBlocks();
@@ -76,21 +75,6 @@ $(document).ready(function() {
 		return Math.min.apply(Math, array);
 	};
 
-	// event listener for submitting the new act form
-	$("#new-act-form").submit(function(event) {
-		event.preventDefault();
-		console.log('submitting a new act');
-		var act = {
-			content: $("#content-text").val()
-		};
-		$.post("/acts", act, function(data) {
-			$("#acts").prepend(actsTemplate(act));
-			setupBlocks();
-		});
-		$('#new-act-modal').modal('hide');
-		$(this)[0].reset();
-	});
-
 	// autofocus on the first field in each form
 	$('#new-act-modal').on('shown.bs.modal', function() {
                 $('#content-text').focus();
@@ -104,16 +88,22 @@ $(document).ready(function() {
                 $('#user').focus();
             });
 
-	// add listener to check for unique username
-	$("#new-user").on("focusout", function(event) {
-		var that = $(this).val();
-		$.get("/users/find/username/" + that, function (data) {
-			if (data === that ) {
-				console.log(this);
-				alert("Username already exists.  Please choose a new username.");
-				$("#new-user").val("").focus();
-			}
-		});
+	$.get("/me", function(data) {
+		if (data == null) {
+			// NOT LOGGED IN
+			console.log("NOT LOGGED IN")
+			$("#login-btn").css("display", "inline");
+			$("#signup-btn").css("display", "inline");
+        	$("#logout-btn").css("display", "none");
+		} else {
+			// SUCCESS
+			console.log(data.username + " is logged in.")
+			$("#login-btn").css("display", "none");
+			$("#signup-btn").css("display", "none");
+        	$("#logout-btn").css("display", "inline");
+        	//loop through user's votes array and change vote icon color if present in array
+
+		}
 	});
 
 	// event listener for submitting the signup form
@@ -124,16 +114,33 @@ $(document).ready(function() {
 			username: $("#new-user").val(),
 			password: $("#new-pw").val()
 		};
-		//send request to server to create new user
-		$.post("/users", user, function(data) {
-			console.log("user added to database");
+		if (user.password.length >= 5) {
+			//send request to server to create new user
+			$.post("/users", user, function(data) {
+				console.log("user added to database");
+			});
+
+			$('#signup-modal').modal('hide');
+
+			//reset the form
+	        $(this)[0].reset();
+		} else {
+			alert("Password must be at least 5 characters long.")
+		}		
+	});
+
+	// add listener to check for unique username on signup
+	$("#new-user").on("focusout", function(event) {
+		var that = $(this).val();
+		$.get("/users/find/username/" + that, function (data) {
+			if (data === that ) {
+				// console.log(this);
+				alert("Username already exists.  Please choose a new username.");
+				$("#new-user").val("").focus();
+			} else {
+				console.log("Username available");
+			}
 		});
-
-		$('#signup-modal').modal('hide');
-
-		//reset the form
-        $(this)[0].reset();
-        $('#new-user').focus();
 	});
 
 	// event listener for submitting the login form
@@ -147,20 +154,41 @@ $(document).ready(function() {
 		//send request to server to log in the current user
 		$.post("/login", user, function(data) {
 			// SUCCESS
-			console.log(data)
-			$("#login-btn").css("display", "none");
-        	$("#logout-btn").css("display", "inline");
-        	$('#login-modal').modal('hide');
-
+			console.log(data.username + " logged in.");
+			$('#login-modal').modal('hide');
         	//reset the form
         	$("#login-form")[0].reset();
-        	$('#user').focus();
-		}).fail(function(data){
+
+        	location.reload();
+		}).fail(function(data) {
 			// ERROR
 			alert("Incorrect username or password.");
 			$("#login-form")[0].reset();
 			$("#user").focus();
 			console.log("err!")
+		});
+	});
+
+	// event listener for submitting the new act form
+	$("#new-act-form").submit(function(event) {
+		event.preventDefault();
+		console.log('submitting a new act');
+		var act = {
+			content: $("#content-text").val()
+		};
+		$.post("/acts", act, function(data) {
+			if (data === "Please login!") {
+				// NOT LOGGED IN
+				alert("Please login to post.");
+			} else {
+				// SUCCESS
+				$("#acts").prepend(actsTemplate(act));
+				setupBlocks();
+				console.log(data);
+
+				$('#new-act-modal').modal('hide');
+				$("#new-act-form")[0].reset();
+			}
 		});
 	});
 
@@ -171,9 +199,7 @@ $(document).ready(function() {
 		$.get("/logout", function(data) {
 			console.log("logging out user");
 		});
-
-		$("#login-btn").css("display", "inline");
-        $("#logout-btn").css("display", "none");
+		location.reload();
 	});
 	
 });

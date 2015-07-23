@@ -2,17 +2,21 @@ var mongoose = require('mongoose'),
 	bcrypt = require('bcrypt'),
 	salt = bcrypt.genSaltSync(10);
 
-var ActSchema = require("./act");
+var Act = require("./act");
 
 var Schema = mongoose.Schema,
 	ObjectId = Schema.ObjectId;
 
 var UserSchema = new Schema({
-	username	: String,
-	password	: String,
-	acts		: [ActSchema],
+	username	: {type: String, required: true},
+	password	: {type: String, required: true},
+	acts		: [{
+					type: Schema.Types.ObjectId,
+					ref: "Act"
+				}],
 	votes		: [{
-
+					type: Schema.Types.ObjectId,
+					ref: "Act"
 				}]
 });
 

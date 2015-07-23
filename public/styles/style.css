@@ -25,6 +25,10 @@
 	display: none;
 }
 
+#signup-btn {
+	display: inline;
+}
+
 #acts {
 	position: relative;
 }
