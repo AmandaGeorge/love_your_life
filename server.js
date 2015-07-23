@@ -6,8 +6,7 @@ var express = require("express"),
 	cors = require("cors"),
 	bodyParser = require("body-parser"),
 	session = require("express-session"),
-	mongoose = require("mongoose"),
-	config = require("./config");
+	mongoose = require("mongoose");
 
 // mongoose.connect(config.MONGO_URI);
 mongoose.connect(process.env.MONGOLAB_URI 
