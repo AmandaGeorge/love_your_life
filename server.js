@@ -116,7 +116,7 @@ app.post("/users", function(req, res) {
 	// save new user to db
 	User.createSecure(newUser.username, newUser.password, function (err, user) {
 		req.login(user);
-		res.send(user.username + " logged in.");
+		res.send(user + " logged in.");
 	});
 });
 
