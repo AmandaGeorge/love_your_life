@@ -1,11 +1,15 @@
 #header {
 	border-radius: 6px;
-	background: #eee;
+	background-color: rgba(255, 255, 255, 0.5);
 	border: 1px solid #ddd;
 	clear: both;
 }
 
-#headline {
+body {
+	background: url("../images/skulls.png");
+}
+
+#header-content {
 	text-align: center;
 }
 
@@ -36,7 +40,7 @@
 .block {
 	border-radius: 6px;
 	position: absolute;
-	background: #eee;
+	background-color: rgba(255, 255, 255, 0.5);
 	padding: 20px;
 	width: 300px;
 	border: 1px solid #ddd;
