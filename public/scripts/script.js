@@ -35,7 +35,7 @@ $(document).ready(function() {
 	});
 
 	//populate acts from server
-	$.get(baseUrl + "/acts", function(data) {
+	$.get("/acts", function(data) {
 		var acts = data;
 
 		_.each(acts, function(act) {

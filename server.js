@@ -53,6 +53,11 @@ app.use("/", function (req, res, next) {
 	next();
 });
 
+app.all("/*", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 // var acts = [
 // 		{user: "tester1", content: "I was carrying tons of boxes and this guy ran ahead of me and held the door for me and then the elevator too.", votes: []},
 // 		{user: "tester2", content: "Every week my elderly neighbor puts my trash can out on the curb the night before trash day, and then she brings in back after the trash gets picked up.", votes: []},
