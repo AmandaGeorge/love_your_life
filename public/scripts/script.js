@@ -117,13 +117,15 @@ $(document).ready(function() {
 		if (user.password.length >= 5 && user.username.length >= 3) {
 			//send request to server to create new user
 			$.post("/users", user, function(data) {
-				console.log("user added to database");
+				console.log(data);
 			});
 
 			$('#signup-modal').modal('hide');
 
 			//reset the form
 	        $(this)[0].reset();
+
+	        location.reload();
 		} else {
 			alert("Password must be at least 5 characters long.")
 		}		
