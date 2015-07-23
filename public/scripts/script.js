@@ -114,7 +114,7 @@ $(document).ready(function() {
 			username: $("#new-user").val(),
 			password: $("#new-pw").val()
 		};
-		if (user.password.length >= 5) {
+		if (user.password.length >= 5 && user.userame.length >= 3) {
 			//send request to server to create new user
 			$.post("/users", user, function(data) {
 				console.log("user added to database");
