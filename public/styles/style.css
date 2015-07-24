@@ -11,6 +11,10 @@ body {
 	background: url("../images/skulls.png");
 }
 
+h1 {
+	font-family: 'Rock Salt', cursive;
+}
+
 #header-content {
 	text-align: center;
 }

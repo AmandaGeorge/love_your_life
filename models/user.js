@@ -26,7 +26,7 @@ UserSchema.statics.createSecure = function(username, password, callback) {
 
 	bcrypt.genSalt(function (err, salt) {
 		bcrypt.hash(password, salt, function (err, hash) {
-			console.log(hash);
+			// console.log(hash);
 
 			that.create({
 				username: username,

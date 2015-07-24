@@ -127,7 +127,7 @@ $(document).ready(function() {
 
 	        location.reload();
 		} else {
-			alert("Password must be at least 5 characters long.")
+			alert("Username must be at least 3 characters. Password must be at least 5 characters long.")
 		}		
 	});
 
