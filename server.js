@@ -26,7 +26,7 @@ app.use(session({
 	secret: process.env.SESSION_SECRET || require("./config").SESSION_SECRET,
 	resave: true,
 	saveUninitialized: true,
-	cookie: { maxAge: 60000 }
+	cookie: { maxAge: 3600000 } //one hour
 }));
 
 // middleware to manage sessions
